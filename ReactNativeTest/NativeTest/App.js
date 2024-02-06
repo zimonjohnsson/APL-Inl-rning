@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Button, Text, View, TextInput, Alert} from 'react-native';
+import {StyleSheet, Button, Text, View, TextInput, Alert, Pressable} from 'react-native';
 
 const App = () => {
   const [todos, setTodos] = useState([]);
@@ -31,8 +31,7 @@ const App = () => {
         style={{
           width: 300,
           fontSize: 30,
-          borderWidth: 1,
-          borderRadius: 20,
+          borderBottomWidth: 1,
           borderColor: 'black',
           textAlign: "center",
           marginBottom: 5,
@@ -42,10 +41,20 @@ const App = () => {
         returnKeyType="done"
         onSubmitEditing={handleSavePress}
         />
-        <Button 
-        title="Spara"
+        <Pressable
         onPress={handleSavePress}
-        />
+        style={{
+          padding: 8,
+          backgroundColor: 'orange',
+          borderRadius: 10,
+        }}
+        ><Text
+        style={{
+          fontSize: 20,
+          color: 'white',
+          fontWeight: 'bold',
+        }}
+        >Spara</Text></Pressable>
         <View style={styles.todoList}>
           {todos.map((todo, index)=>(
           <View key={index} style={styles.todoContainer}>
@@ -56,7 +65,8 @@ const App = () => {
             >{todo} 
             </Text>
             <Button
-            title="R"
+            title="X"
+            color="red"
             onPress={() => handleRemove(index)}
             />
           </View>
@@ -79,7 +89,7 @@ const styles = StyleSheet.create({
   todoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'orange',
+    backgroundColor: 'grey',
     width: 280,
     justifyContent: 'center',
     borderRadius: 10,
