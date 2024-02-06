@@ -1,20 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Button, Text, View, TextInput, Alert} from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const App = () => {
+  const [todo, setTodo] = useState("");
+  const [inputValue, setInputValue] = useState('');
+
+  const handleSavePress=()=>{
+    if(inputValue != ''){
+    setTodo(inputValue);
+    }
+    else{
+      Alert.alert("Har du lika lite IQ som Jonte eller? Skriv något!");
+    }
+  }
+
+    return (
+      <View style={styles.container}>
+        <TextInput
+        value={inputValue}
+        placeholder="TODO"
+        style={{
+          width: 200,
+          textAlign: "center",
+        }}
+        onChangeText={text => setInputValue(text)}
+        />
+        <Button 
+        title="Spara"
+        onPress={handleSavePress}
+        />
+        <View>
+          <Text
+          style={{
+            width:  200,
+            textAlign: "center",
+          }}
+          >{todo}</Text>
+        </View>
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });
+
+export default App;
