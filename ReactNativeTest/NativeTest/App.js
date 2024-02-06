@@ -12,7 +12,7 @@ const App = () => {
     setInputValue('');
     }
     else{
-      Alert.alert("Har du lika lite IQ som Jonte eller? Skriv något!");
+      Alert.alert("Skriv något!");
     }
   }
 
