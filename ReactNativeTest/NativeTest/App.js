@@ -35,6 +35,7 @@ const App = () => {
           borderRadius: 20,
           borderColor: 'black',
           textAlign: "center",
+          marginBottom: 5,
         }}
         onChangeText={text => setInputValue(text)}
         maxLength={20}
@@ -49,6 +50,9 @@ const App = () => {
           {todos.map((todo, index)=>(
           <View key={index} style={styles.todoContainer}>
             <Text
+            style={{
+              marginRight: 10,
+            }}
             >{todo} 
             </Text>
             <Button
@@ -70,7 +74,7 @@ const styles = StyleSheet.create({
     position: 'fixed',
   },
   todoList: {
-    overflow: 'scroll',
+    overflow: 'hidden',
   },
   todoContainer: {
     flexDirection: 'row',
