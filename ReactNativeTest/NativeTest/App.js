@@ -24,7 +24,14 @@ const App = () => {
 
     return (
       <View style={styles.container}>
-        <Text>Zimons fina Todo-list</Text>
+        <Text
+        style={{
+          fontWeight: 'bold',
+          fontStyle: 'italic',
+          fontSize: 20,
+          fontFamily: 'Arial',
+        }}
+        >Zimons fina Todo-list</Text>
         <TextInput
         value={inputValue}
         placeholder="TODO"
@@ -32,6 +39,7 @@ const App = () => {
           width: 300,
           fontSize: 30,
           borderBottomWidth: 1,
+          outlineStyle: 'none',
           borderColor: 'black',
           textAlign: "center",
           marginBottom: 5,
@@ -61,14 +69,18 @@ const App = () => {
             <Text
             style={{
               marginRight: 10,
+              paddingBottom: 4,
+              paddingTop: 4,
+              fontSize: 20,
             }}
             >{todo} 
             </Text>
-            <Button
+            <Pressable
             title="X"
-            color="red"
             onPress={() => handleRemove(index)}
-            />
+            ><Text
+            style={styles.xButton}
+            >X</Text></Pressable>
           </View>
           ))}
         </View>
@@ -98,6 +110,11 @@ const styles = StyleSheet.create({
     shadowOffset: {width: -2, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 2,
+  },
+  xButton:{
+    fontSize: 20,
+    color: 'red',
+    fontWeight: 'bold',
   },
 });
 
