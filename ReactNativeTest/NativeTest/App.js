@@ -1,15 +1,27 @@
 import React, {useState} from 'react';
 import {StyleSheet, Button, Text, View, TextInput, Alert, Pressable} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const [mode, setMode] = useState('date');
+
+  const [date, setDate] = useState(new Date());
+  const [newDate, setNewDate] = useState();
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+    console.log(date);
+  };
 
   const handleSavePress=()=>{
     if(inputValue !== ''){
-    const newTodos = [...todos, inputValue];
+    const newTodos = [...todos, { text: inputValue, date: newDate }];
     setTodos(newTodos);
     setInputValue('');
+    setNewDate(undefined);
     }
     else{
       Alert.alert("Skriv något!");
@@ -49,6 +61,13 @@ const App = () => {
         returnKeyType="done"
         onSubmitEditing={handleSavePress}
         />
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          onChange={(event, selectedDate) => setNewDate(selectedDate)}
+        />
         <Pressable
         onPress={handleSavePress}
         style={{
@@ -73,7 +92,9 @@ const App = () => {
               paddingTop: 4,
               fontSize: 20,
             }}
-            >{todo} 
+            >{todo.text} 
+            {"\n"}
+            {todo.date && todo.date.toLocaleString()}
             </Text>
             <Pressable
             title="X"
