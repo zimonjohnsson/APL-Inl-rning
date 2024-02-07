@@ -5,15 +5,15 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const [mode, setMode] = useState('date');
+  const [mode, setMode] = useState('time');
 
   const [date, setDate] = useState(new Date());
   const [newDate, setNewDate] = useState();
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
+    const currentDate = selectedDate || date;
+    setMode('time');
     setDate(currentDate);
-    console.log(date);
   };
 
   const handleSavePress=()=>{
@@ -43,7 +43,7 @@ const App = () => {
           fontSize: 20,
           fontFamily: 'Arial',
         }}
-        >Zimons fina Todo-list</Text>
+        >Daily TODO-list</Text>
         <TextInput
         value={inputValue}
         placeholder="TODO"
@@ -66,7 +66,14 @@ const App = () => {
           value={date}
           mode={mode}
           is24Hour={true}
-          onChange={(event, selectedDate) => setNewDate(selectedDate)}
+          style={{
+            marginRight: 10,
+            marginBottom: 4,
+          }}
+          onChange={(event, selectedDate) => {
+          setNewDate(selectedDate);
+          onChange(event, selectedDate);
+        }}
         />
         <Pressable
         onPress={handleSavePress}
@@ -77,11 +84,11 @@ const App = () => {
         }}
         ><Text
         style={{
-          fontSize: 20,
+          fontSize: 25,
           color: 'white',
           fontWeight: 'bold',
         }}
-        >Spara</Text></Pressable>
+        >ADD</Text></Pressable>
         <View style={styles.todoList}>
           {todos.map((todo, index)=>(
           <View key={index} style={styles.todoContainer}>
@@ -92,9 +99,15 @@ const App = () => {
               paddingTop: 4,
               fontSize: 20,
             }}
-            >{todo.text} 
-            {"\n"}
+            ><Text
+            style={{
+            }}>{todo.text} </Text>
+            <Text
+            style={{
+            }}
+            >
             {todo.date && todo.date.toLocaleString()}
+            </Text>
             </Text>
             <Pressable
             title="X"
